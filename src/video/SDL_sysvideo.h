@@ -242,10 +242,12 @@ struct SDL_VideoDevice
     void (*GL_SwapWindow) (_THIS, SDL_Window * window);
     void (*GL_DeleteContext) (_THIS, SDL_GLContext context);
 
-  SDL_MetalContext (*Metal_CreateContext)(_THIS, SDL_Window * window);
-  void *           (*Metal_BeginFrame)   (_THIS, SDL_MetalContext context);
-  void             (*Metal_EndFrame)     (_THIS, SDL_MetalContext context);
-  void             (*Metal_DeleteContext)(_THIS, SDL_MetalContext context);
+  SDL_MetalContext (*Metal_CreateContext)        (_THIS, SDL_Window * window);
+  void *           (*Metal_GetDevice)            (_THIS, SDL_MetalContext context);
+  void *           (*Metal_BeginFrame)           (_THIS, SDL_MetalContext context);
+  void             (*Metal_PresentCommandBuffer) (_THIS, SDL_MetalContext context, void * commandBuffer);
+  void             (*Metal_EndFrame)             (_THIS, SDL_MetalContext context);
+  void             (*Metal_DeleteContext)        (_THIS, SDL_MetalContext context);
 
     /* * * */
     /*

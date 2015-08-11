@@ -632,3 +632,5 @@ SDL_DYNAPI_PROC(SDL_MetalContext,SDL_Metal_CreateContext,(SDL_Window *a),(a),ret
 SDL_DYNAPI_PROC(void,SDL_Metal_DeleteContext,(SDL_MetalContext a),(a),)
 SDL_DYNAPI_PROC(void*,SDL_Metal_BeginFrame,(SDL_MetalContext a),(a),return)
 SDL_DYNAPI_PROC(void,SDL_Metal_EndFrame,(SDL_MetalContext a),(a),)
+SDL_DYNAPI_PROC(void,SDL_Metal_PresentCommandBuffer,(SDL_MetalContext a, void *b),(a,b),)
+SDL_DYNAPI_PROC(void*,SDL_Metal_GetDevice,(SDL_MetalContext a),(a),return)

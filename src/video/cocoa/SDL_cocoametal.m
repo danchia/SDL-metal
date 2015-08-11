@@ -41,6 +41,11 @@
   [super dealloc];
 }
 
+- (id<MTLDevice>) device
+{
+  return d_device;
+}
+
 - (MTLRenderPassDescriptor *) beginFrame
 {
   if (d_passDescriptor == nil) {
@@ -80,17 +85,14 @@
   return d_passDescriptor;
 }
 
+- (void) presentCommandBuffer: (id<MTLCommandBuffer>)commandBuffer
+{
+  [commandBuffer presentDrawable: d_drawable];
+}
+
 - (void) endFrame
 {
   if (d_passDescriptor) {
-    id<MTLCommandQueue> commandQueue = [d_device newCommandQueue];
-    id<MTLCommandBuffer> commandBuffer = [commandQueue commandBuffer];
-    id <MTLRenderCommandEncoder> commandEncoder = [commandBuffer renderCommandEncoderWithDescriptor: d_passDescriptor];
-    [commandEncoder endEncoding];
-
-    [commandBuffer presentDrawable: d_drawable];
-    [commandBuffer commit];    
-
     d_drawable = nil;
     d_passDescriptor = nil;
   }
@@ -111,10 +113,25 @@ Cocoa_Metal_CreateContext(_THIS, SDL_Window * window)
 }}
 
 void *
+Cocoa_Metal_GetDevice(_THIS, SDL_MetalContext context)
+{
+  SDLMetalContext *nscontext = (SDLMetalContext *)context;
+  return [nscontext device];
+}
+
+void *
 Cocoa_Metal_BeginFrame(_THIS, SDL_MetalContext context)
 {
   SDLMetalContext *nscontext = (SDLMetalContext *)context;
   return [nscontext beginFrame];
+}
+
+void
+Cocoa_Metal_PresentCommandBuffer(_THIS, SDL_MetalContext context, void * commandBuffer)
+{
+  SDLMetalContext *nscontext = (SDLMetalContext *)context;
+  id<MTLCommandBuffer> mtlcommandBuffer = (id<MTLCommandBuffer>)commandBuffer;
+  [nscontext presentCommandBuffer: mtlcommandBuffer];
 }
 
 void

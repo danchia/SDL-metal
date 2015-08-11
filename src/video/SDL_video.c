@@ -3238,13 +3238,17 @@ SDL_Metal_DeleteContext(SDL_MetalContext context)
         return;
     }
 
-#if 0
-    if (SDL_GL_GetCurrentContext() == context) {
-        SDL_GL_MakeCurrent(NULL, NULL);
-    }
-#endif
-
     _this->Metal_DeleteContext(_this, context);
+}
+
+void *
+SDL_Metal_GetDevice(SDL_MetalContext context)
+{
+  if (!_this || !context) {
+    return NULL;
+  }
+
+  return _this->Metal_GetDevice(_this, context);
 }
 
 void *
@@ -3255,6 +3259,16 @@ SDL_Metal_BeginFrame(SDL_MetalContext context)
   }
 
   return _this->Metal_BeginFrame(_this, context);
+}
+
+void
+SDL_Metal_PresentCommandBuffer(SDL_MetalContext context, void * commandBuffer)
+{
+  if (!_this || !context) {
+    return;
+  }
+
+  _this->Metal_PresentCommandBuffer(_this, context, commandBuffer);
 }
 
 void
