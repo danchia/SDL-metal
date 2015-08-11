@@ -1235,7 +1235,7 @@ SDL_UpdateFullscreenMode(SDL_Window * window, SDL_bool fullscreen)
 }
 
 #define CREATE_FLAGS \
-    (SDL_WINDOW_OPENGL | SDL_WINDOW_BORDERLESS | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI)
+    (SDL_WINDOW_OPENGL | SDL_WINDOW_METAL | SDL_WINDOW_BORDERLESS | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI)
 
 static void
 SDL_FinishWindowCreation(SDL_Window *window, Uint32 flags)
@@ -1299,6 +1299,13 @@ SDL_CreateWindow(const char *title, int x, int y, int w, int h, Uint32 flags)
             return NULL;
         }
         if (SDL_GL_LoadLibrary(NULL) < 0) {
+            return NULL;
+        }
+    }
+    if (flags & SDL_WINDOW_METAL) {
+      fprintf(stderr,"wants metal\n");
+        if (!_this->Metal_CreateContext) {
+            SDL_SetError("No Apple Metal support in video driver");
             return NULL;
         }
     }
@@ -1410,6 +1417,9 @@ SDL_RecreateWindow(SDL_Window * window, Uint32 flags)
 
     if ((flags & SDL_WINDOW_OPENGL) && !_this->GL_CreateContext) {
         return SDL_SetError("No OpenGL support in video driver");
+    }
+    if ((flags & SDL_WINDOW_METAL) && !_this->Metal_CreateContext) {
+        return SDL_SetError("No Apple Metal support in video driver");
     }
 
     if (window->flags & SDL_WINDOW_FOREIGN) {
@@ -3211,24 +3221,13 @@ SDL_Metal_CreateContext(SDL_Window * window)
     SDL_MetalContext ctx = NULL;
     CHECK_WINDOW_MAGIC(window, NULL);
 
-#if 0
-    if (!(window->flags & SDL_WINDOW_OPENGL)) {
-        SDL_SetError("The specified window isn't an OpenGL window");
+    if (!(window->flags & SDL_WINDOW_METAL)) {
+        SDL_SetError("The specified window isn't an Apple Metal window");
         return NULL;
     }
-#endif
 
     ctx = _this->Metal_CreateContext(_this, window);
 
-#if 0
-    /* Creating a context is assumed to make it current in the SDL driver. */
-    if (ctx) {
-      _this->current_glwin = window;
-        _this->current_glctx = ctx;
-        SDL_TLSSet(_this->current_glwin_tls, window, NULL);
-        SDL_TLSSet(_this->current_glctx_tls, ctx, NULL);
-    }
-#endif
     return ctx;
 }
 
