@@ -21361,7 +21361,10 @@ $as_echo "#define SDL_VIDEO_RENDER_OGL 1" >>confdefs.h
 
         SUMMARY_video="${SUMMARY_video} opengl"
     fi
+}
 
+CheckMetal()
+{
     if test x$enable_video = xyes -a x$enable_video_metal = xyes; then
 
 $as_echo "#define SDL_VIDEO_METAL 1" >>confdefs.h
@@ -23472,6 +23475,7 @@ $as_echo "#define SDL_FILESYSTEM_HAIKU 1" >>confdefs.h
         CheckCOCOA
         CheckX11
         CheckMacGL
+	CheckMetal
         CheckOpenGLX11
         CheckPTHREAD
 
@@ -23540,6 +23544,11 @@ $as_echo "#define SDL_TIMER_UNIX 1" >>confdefs.h
         if test x$enable_audio = xyes; then
             EXTRA_LDFLAGS="$EXTRA_LDFLAGS -Wl,-framework,CoreAudio -Wl,-framework,AudioToolbox -Wl,-framework,AudioUnit"
         fi
+	# If Metal is used, add the Metal and QuartzCore frameworks
+	if test x$enable_video_metal = xyes; then
+	   EXTRA_LDFLAGS="$EXTRA_LDFLAGS -Wl,-framework,Metal"
+	   EXTRA_LDFLAGS="$EXTRA_LDFLAGS -Wl,-framework,QuartzCore"
+	fi
         ;;
     *-nacl|*-pnacl)
         ARCH=nacl

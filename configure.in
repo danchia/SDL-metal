@@ -2113,7 +2113,11 @@ CheckMacGL()
         AC_DEFINE(SDL_VIDEO_RENDER_OGL, 1, [ ])
         SUMMARY_video="${SUMMARY_video} opengl"
     fi
+}
 
+dnl Check for Apple Metal
+CheckMetal()
+{
     if test x$enable_video = xyes -a x$enable_video_metal = xyes; then
 	AC_DEFINE(SDL_VIDEO_METAL, 1, [ ])
 	AC_DEFINE(SDL_VIDEO_RENDER_METAL, 1, [ ])
@@ -3267,6 +3271,7 @@ AC_HELP_STRING([--enable-render-d3d], [enable the Direct3D render driver [[defau
         CheckCOCOA
         CheckX11
         CheckMacGL
+	CheckMetal
         CheckOpenGLX11
         CheckPTHREAD
 
@@ -3323,6 +3328,11 @@ AC_HELP_STRING([--enable-render-d3d], [enable the Direct3D render driver [[defau
         if test x$enable_audio = xyes; then
             EXTRA_LDFLAGS="$EXTRA_LDFLAGS -Wl,-framework,CoreAudio -Wl,-framework,AudioToolbox -Wl,-framework,AudioUnit"
         fi
+	# If Metal is used, add the Metal and QuartzCore frameworks
+	if test x$enable_video_metal = xyes; then
+	   EXTRA_LDFLAGS="$EXTRA_LDFLAGS -Wl,-framework,Metal"
+	   EXTRA_LDFLAGS="$EXTRA_LDFLAGS -Wl,-framework,QuartzCore"
+	fi
         ;;
     *-nacl|*-pnacl)
         ARCH=nacl

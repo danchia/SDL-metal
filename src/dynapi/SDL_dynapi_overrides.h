@@ -596,3 +596,5 @@
 #define SDL_SetWindowsMessageHook SDL_SetWindowsMessageHook_REAL
 #define SDL_Metal_CreateContext SDL_Metal_CreateContext_REAL
 #define SDL_Metal_DeleteContext SDL_Metal_DeleteContext_REAL
+#define SDL_Metal_BeginFrame SDL_Metal_BeginFrame_REAL
+#define SDL_Metal_EndFrame SDL_Metal_EndFrame_REAL

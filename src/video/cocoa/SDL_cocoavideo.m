@@ -120,6 +120,8 @@ Cocoa_CreateDevice(int devindex)
 
 #if SDL_VIDEO_METAL
     device->Metal_CreateContext = Cocoa_Metal_CreateContext;
+    device->Metal_BeginFrame    = Cocoa_Metal_BeginFrame;
+    device->Metal_EndFrame      = Cocoa_Metal_EndFrame;
     device->Metal_DeleteContext = Cocoa_Metal_DeleteContext;
 #endif
 

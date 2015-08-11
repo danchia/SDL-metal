@@ -3248,6 +3248,26 @@ SDL_Metal_DeleteContext(SDL_MetalContext context)
     _this->Metal_DeleteContext(_this, context);
 }
 
+void *
+SDL_Metal_BeginFrame(SDL_MetalContext context)
+{
+  if (!_this || !context) {
+    return NULL;
+  }
+
+  return _this->Metal_BeginFrame(_this, context);
+}
+
+void
+SDL_Metal_EndFrame(SDL_MetalContext context)
+{
+  if (!_this || !context) {
+    return;
+  }
+
+  _this->Metal_EndFrame(_this, context);
+}
+
 #if 0                           /* FIXME */
 /*
  * Utility function used by SDL_WM_SetIcon(); flags & 1 for color key, flags
