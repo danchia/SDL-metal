@@ -242,6 +242,9 @@ struct SDL_VideoDevice
     void (*GL_SwapWindow) (_THIS, SDL_Window * window);
     void (*GL_DeleteContext) (_THIS, SDL_GLContext context);
 
+  SDL_MetalContext (*Metal_CreateContext)(_THIS, SDL_Window * window);
+  void             (*Metal_DeleteContext)(_THIS, SDL_Window * window);
+
     /* * * */
     /*
      * Event manager functions

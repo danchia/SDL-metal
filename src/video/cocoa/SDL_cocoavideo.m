@@ -118,6 +118,11 @@ Cocoa_CreateDevice(int devindex)
     device->GL_DeleteContext = Cocoa_GL_DeleteContext;
 #endif
 
+#if SDL_VIDEO_METAL
+    device->Metal_CreateContext = Cocoa_Metal_CreateContext;
+    device->Metal_DeleteContext = Cocoa_Metal_DeleteContext;
+#endif
+
     device->StartTextInput = Cocoa_StartTextInput;
     device->StopTextInput = Cocoa_StopTextInput;
     device->SetTextInputRect = Cocoa_SetTextInputRect;

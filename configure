@@ -841,6 +841,7 @@ enable_fusionsound
 enable_fusionsound_shared
 enable_video_dummy
 enable_video_opengl
+enable_video_metal
 enable_video_opengles
 enable_video_opengles1
 enable_video_opengles2
@@ -1577,6 +1578,7 @@ Optional Features:
                           [[default=yes]]
   --enable-video-dummy    use dummy video driver [[default=yes]]
   --enable-video-opengl   include OpenGL support [[default=yes]]
+  --enable-video-metal    include Apple Metal support [[default=yes]]
   --enable-video-opengles include OpenGL ES support [[default=yes]]
   --enable-video-opengles1
                           include OpenGL ES 1.1 support [[default=yes]]
@@ -21043,6 +21045,14 @@ else
 fi
 
 
+# Check whether --enable-video-metal was given.
+if test "${enable_video_metal+set}" = set; then :
+  enableval=$enable_video_metal;
+else
+  enable_video_metal=yes
+fi
+
+
 CheckOpenGLX11()
 {
     if test x$enable_video = xyes -a x$enable_video_opengl = xyes; then
@@ -21350,6 +21360,16 @@ $as_echo "#define SDL_VIDEO_OPENGL_CGL 1" >>confdefs.h
 $as_echo "#define SDL_VIDEO_RENDER_OGL 1" >>confdefs.h
 
         SUMMARY_video="${SUMMARY_video} opengl"
+    fi
+
+    if test x$enable_video = xyes -a x$enable_video_metal = xyes; then
+
+$as_echo "#define SDL_VIDEO_METAL 1" >>confdefs.h
+
+
+$as_echo "#define SDL_VIDEO_RENDER_METAL 1" >>confdefs.h
+
+        SUMMARY_video="${SUMMARY_video} metal"
     fi
 }
 

@@ -594,3 +594,5 @@
 #define SDL_ClearQueuedAudio SDL_ClearQueuedAudio_REAL
 #define SDL_GetGrabbedWindow SDL_GetGrabbedWindow_REAL
 #define SDL_SetWindowsMessageHook SDL_SetWindowsMessageHook_REAL
+#define SDL_Metal_CreateContext SDL_Metal_CreateContext_REAL
+#define SDL_Metal_DeleteContext SDL_Metal_DeleteContext_REAL

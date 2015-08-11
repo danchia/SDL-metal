@@ -3205,6 +3205,49 @@ SDL_GL_DeleteContext(SDL_GLContext context)
     _this->GL_DeleteContext(_this, context);
 }
 
+SDL_MetalContext
+SDL_Metal_CreateContext(SDL_Window * window)
+{
+    SDL_MetalContext ctx = NULL;
+    CHECK_WINDOW_MAGIC(window, NULL);
+
+#if 0
+    if (!(window->flags & SDL_WINDOW_OPENGL)) {
+        SDL_SetError("The specified window isn't an OpenGL window");
+        return NULL;
+    }
+#endif
+
+    ctx = _this->Metal_CreateContext(_this, window);
+
+#if 0
+    /* Creating a context is assumed to make it current in the SDL driver. */
+    if (ctx) {
+      _this->current_glwin = window;
+        _this->current_glctx = ctx;
+        SDL_TLSSet(_this->current_glwin_tls, window, NULL);
+        SDL_TLSSet(_this->current_glctx_tls, ctx, NULL);
+    }
+#endif
+    return ctx;
+}
+
+void
+SDL_Metal_DeleteContext(SDL_MetalContext context)
+{
+    if (!_this || !context) {
+        return;
+    }
+
+#if 0
+    if (SDL_GL_GetCurrentContext() == context) {
+        SDL_GL_MakeCurrent(NULL, NULL);
+    }
+#endif
+
+    _this->Metal_DeleteContext(_this, context);
+}
+
 #if 0                           /* FIXME */
 /*
  * Utility function used by SDL_WM_SetIcon(); flags & 1 for color key, flags

@@ -628,3 +628,5 @@ SDL_DYNAPI_PROC(SDL_Window*,SDL_GetGrabbedWindow,(void),(),return)
 SDL_DYNAPI_PROC(void,SDL_SetWindowsMessageHook,(SDL_WindowsMessageHook a, void *b),(a,b),)
 #endif
 SDL_DYNAPI_PROC(int,SDL_GetDisplayDPI,(int a, float *b, float *c, float *d),(a,b,c,d),return)
+SDL_DYNAPI_PROC(SDL_MetalContext,SDL_Metal_CreateContext,(SDL_Window *a),(a),return)
+SDL_DYNAPI_PROC(void,SDL_Metal_DeleteContext,(SDL_MetalContext a),(a),)

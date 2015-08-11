@@ -1945,6 +1945,11 @@ AC_ARG_ENABLE(video-opengl,
 AC_HELP_STRING([--enable-video-opengl], [include OpenGL support [[default=yes]]]),
               , enable_video_opengl=yes)
 
+dnl Check to see if Apple Metal support is desired
+AC_ARG_ENABLE(video-metal,
+AC_HELP_STRING([--enable-video-metal], [include Apple Metal support [[default=yes]]]),
+              , enable_video_metal=yes)
+
 dnl Find OpenGL
 CheckOpenGLX11()
 {
@@ -2107,6 +2112,12 @@ CheckMacGL()
         AC_DEFINE(SDL_VIDEO_OPENGL_CGL, 1, [ ])
         AC_DEFINE(SDL_VIDEO_RENDER_OGL, 1, [ ])
         SUMMARY_video="${SUMMARY_video} opengl"
+    fi
+
+    if test x$enable_video = xyes -a x$enable_video_metal = xyes; then
+	AC_DEFINE(SDL_VIDEO_METAL, 1, [ ])
+	AC_DEFINE(SDL_VIDEO_RENDER_METAL, 1, [ ])
+        SUMMARY_video="${SUMMARY_video} metal"
     fi
 }
 

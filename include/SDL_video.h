@@ -214,6 +214,11 @@ typedef enum
     SDL_GL_CONTEXT_RELEASE_BEHAVIOR_FLUSH  = 0x0001
 } SDL_GLcontextReleaseFlag;
 
+/**
+ *  \brief An opaque handle to a Metal drawable.
+ */
+
+typedef void *SDL_MetalContext;
 
 /* Function prototypes */
 
@@ -1068,6 +1073,13 @@ extern DECLSPEC void SDLCALL SDL_GL_DeleteContext(SDL_GLContext context);
 
 /* @} *//* OpenGL support functions */
 
+/**
+ *  \name Metal support functions
+ */
+
+extern DECLSPEC SDL_MetalContext SDLCALL SDL_Metal_CreateContext(SDL_Window *window);
+
+extern DECLSPEC void SDLCALL SDL_Metal_DeleteContext(SDL_MetalContext context);
 
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus
