@@ -185,4 +185,16 @@
 #define SDL_ALTIVEC_BLITTERS    1
 #endif
 
+#ifdef MAC_OS_X_VERSION_10_11
+
+#ifndef SDL_VIDEO_RENDER_METAL
+#define SDL_VIDEO_RENDER_METAL    1
+#endif
+
+#ifndef SDL_VIDEO_METAL
+#define SDL_VIDEO_METAL 1
+#endif
+
+#endif
+
 #endif /* _SDL_config_macosx_h */

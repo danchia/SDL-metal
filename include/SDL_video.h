@@ -115,7 +115,8 @@ typedef enum
     SDL_WINDOW_SKIP_TASKBAR  = 0x00010000,      /**< window should not be added to the taskbar */
     SDL_WINDOW_UTILITY       = 0x00020000,      /**< window should be treated as a utility window */
     SDL_WINDOW_TOOLTIP       = 0x00040000,      /**< window should be treated as a tooltip */
-    SDL_WINDOW_POPUP_MENU    = 0x00080000       /**< window should be treated as a popup menu */
+    SDL_WINDOW_POPUP_MENU    = 0x00080000,      /**< window has mouse captured (unrelated to INPUT_GRABBED) */
+    SDL_WINDOW_METAL         = 0x00100000       /**< window usable with Apple Metal */
 } SDL_WindowFlags;
 
 /**
@@ -223,6 +224,11 @@ typedef enum
     SDL_GL_CONTEXT_RELEASE_BEHAVIOR_FLUSH  = 0x0001
 } SDL_GLcontextReleaseFlag;
 
+/**
+ *  \brief An opaque handle to a Metal drawable.
+ */
+
+typedef void *SDL_MetalContext;
 
 /* Function prototypes */
 
@@ -1188,6 +1194,16 @@ extern DECLSPEC void SDLCALL SDL_GL_DeleteContext(SDL_GLContext context);
 
 /* @} *//* OpenGL support functions */
 
+/**
+ *  \name Metal support functions
+ */
+
+extern DECLSPEC SDL_MetalContext SDLCALL SDL_Metal_CreateContext     (SDL_Window *window);
+extern DECLSPEC void *           SDLCALL SDL_Metal_GetDevice         (SDL_MetalContext context);
+extern DECLSPEC void *           SDLCALL SDL_Metal_BeginFrame        (SDL_MetalContext context);
+extern DECLSPEC void             SDLCALL SDL_Metal_PresentCommandBuffer (SDL_MetalContext context, void * commandBuffer);
+extern DECLSPEC void             SDLCALL SDL_Metal_EndFrame          (SDL_MetalContext context);
+extern DECLSPEC void             SDLCALL SDL_Metal_DeleteContext     (SDL_MetalContext context);
 
 /* Ends C function definitions when using C++ */
 #ifdef __cplusplus

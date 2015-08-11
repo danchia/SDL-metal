@@ -320,6 +320,7 @@
 #undef SDL_VIDEO_RENDER_OGL_ES
 #undef SDL_VIDEO_RENDER_OGL_ES2
 #undef SDL_VIDEO_RENDER_DIRECTFB
+#undef SDL_VIDEO_RENDER_METAL
 
 /* Enable OpenGL support */
 #undef SDL_VIDEO_OPENGL
@@ -332,6 +333,9 @@
 #undef SDL_VIDEO_OPENGL_WGL
 #undef SDL_VIDEO_OPENGL_OSMESA
 #undef SDL_VIDEO_OPENGL_OSMESA_DYNAMIC
+
+/* Enable Apple Metal support */
+#undef SDL_VIDEO_METAL
 
 /* Enable system power support */
 #undef SDL_POWER_LINUX

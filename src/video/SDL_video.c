@@ -1306,7 +1306,7 @@ SDL_UpdateFullscreenMode(SDL_Window * window, SDL_bool fullscreen)
 }
 
 #define CREATE_FLAGS \
-    (SDL_WINDOW_OPENGL | SDL_WINDOW_BORDERLESS | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_ALWAYS_ON_TOP | SDL_WINDOW_SKIP_TASKBAR | SDL_WINDOW_POPUP_MENU | SDL_WINDOW_UTILITY | SDL_WINDOW_TOOLTIP)
+    (SDL_WINDOW_OPENGL | SDL_WINDOW_METAL | SDL_WINDOW_BORDERLESS | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_ALWAYS_ON_TOP | SDL_WINDOW_SKIP_TASKBAR | SDL_WINDOW_POPUP_MENU | SDL_WINDOW_UTILITY | SDL_WINDOW_TOOLTIP)
 
 static void
 SDL_FinishWindowCreation(SDL_Window *window, Uint32 flags)
@@ -1370,6 +1370,12 @@ SDL_CreateWindow(const char *title, int x, int y, int w, int h, Uint32 flags)
             return NULL;
         }
         if (SDL_GL_LoadLibrary(NULL) < 0) {
+            return NULL;
+        }
+    }
+    if (flags & SDL_WINDOW_METAL) {
+        if (!_this->Metal_CreateContext) {
+            SDL_SetError("No Apple Metal support in video driver");
             return NULL;
         }
     }
@@ -1514,6 +1520,9 @@ SDL_RecreateWindow(SDL_Window * window, Uint32 flags)
 
     if ((flags & SDL_WINDOW_OPENGL) && !_this->GL_CreateContext) {
         return SDL_SetError("No OpenGL support in video driver");
+    }
+    if ((flags & SDL_WINDOW_METAL) && !_this->Metal_CreateContext) {
+        return SDL_SetError("No Apple Metal support in video driver");
     }
 
     if (window->flags & SDL_WINDOW_FOREIGN) {
@@ -3400,6 +3409,72 @@ SDL_GL_DeleteContext(SDL_GLContext context)
     }
 
     _this->GL_DeleteContext(_this, context);
+}
+
+SDL_MetalContext
+SDL_Metal_CreateContext(SDL_Window * window)
+{
+    SDL_MetalContext ctx = NULL;
+    CHECK_WINDOW_MAGIC(window, NULL);
+
+    if (!(window->flags & SDL_WINDOW_METAL)) {
+        SDL_SetError("The specified window isn't an Apple Metal window");
+        return NULL;
+    }
+
+    ctx = _this->Metal_CreateContext(_this, window);
+
+    return ctx;
+}
+
+void
+SDL_Metal_DeleteContext(SDL_MetalContext context)
+{
+    if (!_this || !context) {
+        return;
+    }
+
+    _this->Metal_DeleteContext(_this, context);
+}
+
+void *
+SDL_Metal_GetDevice(SDL_MetalContext context)
+{
+  if (!_this || !context) {
+    return NULL;
+  }
+
+  return _this->Metal_GetDevice(_this, context);
+}
+
+void *
+SDL_Metal_BeginFrame(SDL_MetalContext context)
+{
+  if (!_this || !context) {
+    return NULL;
+  }
+
+  return _this->Metal_BeginFrame(_this, context);
+}
+
+void
+SDL_Metal_PresentCommandBuffer(SDL_MetalContext context, void * commandBuffer)
+{
+  if (!_this || !context) {
+    return;
+  }
+
+  _this->Metal_PresentCommandBuffer(_this, context, commandBuffer);
+}
+
+void
+SDL_Metal_EndFrame(SDL_MetalContext context)
+{
+  if (!_this || !context) {
+    return;
+  }
+
+  _this->Metal_EndFrame(_this, context);
 }
 
 #if 0                           /* FIXME */
