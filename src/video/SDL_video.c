@@ -1303,7 +1303,6 @@ SDL_CreateWindow(const char *title, int x, int y, int w, int h, Uint32 flags)
         }
     }
     if (flags & SDL_WINDOW_METAL) {
-      fprintf(stderr,"wants metal\n");
         if (!_this->Metal_CreateContext) {
             SDL_SetError("No Apple Metal support in video driver");
             return NULL;
