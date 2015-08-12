@@ -11,7 +11,6 @@
   self = [super init];
 
   d_device = MTLCreateSystemDefaultDevice();
-  NSLog(@"Hello metal: %@", [d_device name]);
 
   d_window = sdlwindow;
 
@@ -30,8 +29,6 @@
 
 - (void) dealloc
 {
-  NSLog(@"Goodbye metal: %@", [d_device name]);
-
   SDL_WindowData *sdlwindowdata = (SDL_WindowData *)d_window->driverdata;
   [[sdlwindowdata->nswindow contentView] setWantsLayer:NO];
   [[sdlwindowdata->nswindow contentView] setLayer:nil];
@@ -103,11 +100,7 @@
 SDL_MetalContext
 Cocoa_Metal_CreateContext(_THIS, SDL_Window * window)
 { @autoreleasepool {
-    NSLog(@"Cocoa_Metal_CreateContext");
-
-    SDLMetalContext *nscontext;
-
-    nscontext = [[SDLMetalContext alloc] initForWindow:window];
+    SDLMetalContext *nscontext = [[SDLMetalContext alloc] initForWindow:window];
 
     return nscontext;
 }}
@@ -144,10 +137,7 @@ Cocoa_Metal_EndFrame(_THIS, SDL_MetalContext context)
 void
 Cocoa_Metal_DeleteContext(_THIS, SDL_MetalContext context)
 { @autoreleasepool {
-    NSLog(@"Cocoa_Metal_DeleteContext");
-
     SDLMetalContext *nscontext = (SDLMetalContext *)context;
-
     [nscontext release];
 }}
 
