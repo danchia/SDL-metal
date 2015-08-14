@@ -1578,7 +1578,7 @@ Optional Features:
                           [[default=yes]]
   --enable-video-dummy    use dummy video driver [[default=yes]]
   --enable-video-opengl   include OpenGL support [[default=yes]]
-  --enable-video-metal    include Apple Metal support [[default=yes]]
+  --enable-video-metal    include Apple Metal support [[default=no]]
   --enable-video-opengles include OpenGL ES support [[default=yes]]
   --enable-video-opengles1
                           include OpenGL ES 1.1 support [[default=yes]]
@@ -21049,7 +21049,7 @@ fi
 if test "${enable_video_metal+set}" = set; then :
   enableval=$enable_video_metal;
 else
-  enable_video_metal=yes
+  enable_video_metal=no
 fi
 
 

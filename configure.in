@@ -1947,8 +1947,8 @@ AC_HELP_STRING([--enable-video-opengl], [include OpenGL support [[default=yes]]]
 
 dnl Check to see if Apple Metal support is desired
 AC_ARG_ENABLE(video-metal,
-AC_HELP_STRING([--enable-video-metal], [include Apple Metal support [[default=yes]]]),
-              , enable_video_metal=yes)
+AC_HELP_STRING([--enable-video-metal], [include Apple Metal support [[default=no]]]),
+              , enable_video_metal=no)
 
 dnl Find OpenGL
 CheckOpenGLX11()
