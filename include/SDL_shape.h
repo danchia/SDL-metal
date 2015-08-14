@@ -57,6 +57,7 @@ extern "C" {
  *               ::SDL_WINDOW_OPENGL,     ::SDL_WINDOW_INPUT_GRABBED,
  *               ::SDL_WINDOW_HIDDEN,     ::SDL_WINDOW_RESIZABLE,
  *               ::SDL_WINDOW_MAXIMIZED,  ::SDL_WINDOW_MINIMIZED,
+ *               ::SDL_WINDOW_METAL,
  *       ::SDL_WINDOW_BORDERLESS is always set, and ::SDL_WINDOW_FULLSCREEN is always unset.
  *
  *  \return The window created, or NULL if window creation failed.

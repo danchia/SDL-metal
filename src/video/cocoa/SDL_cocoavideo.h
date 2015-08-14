@@ -38,6 +38,7 @@
 #include "SDL_cocoamodes.h"
 #include "SDL_cocoamouse.h"
 #include "SDL_cocoaopengl.h"
+#include "SDL_cocoametal.h"
 #include "SDL_cocoawindow.h"
 
 /* Private display data */
