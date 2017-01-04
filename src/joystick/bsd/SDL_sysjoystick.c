@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2016 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2017 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -204,12 +204,14 @@ SDL_SYS_JoystickInit(void)
     return (SDL_SYS_numjoysticks);
 }
 
-int SDL_SYS_NumJoysticks()
+int
+SDL_SYS_NumJoysticks(void)
 {
     return SDL_SYS_numjoysticks;
 }
 
-void SDL_SYS_JoystickDetect()
+void
+SDL_SYS_JoystickDetect(void)
 {
 }
 
@@ -561,7 +563,7 @@ SDL_SYS_JoystickUpdate(SDL_Joystick * joy)
                             v *= 32768 /
                                 ((hitem.logical_maximum -
                                   hitem.logical_minimum + 1) / 2);
-                            if (v != joy->axes[naxe]) {
+                            if (v != joy->axes[naxe].value) {
                                 SDL_PrivateJoystickAxis(joy, naxe, v);
                             }
                         } else if (usage == HUG_HAT_SWITCH) {

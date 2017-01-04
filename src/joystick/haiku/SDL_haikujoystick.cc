@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2016 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2017 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -84,12 +84,12 @@ extern "C"
         return (SDL_SYS_numjoysticks);
     }
 
-    int SDL_SYS_NumJoysticks()
+    int SDL_SYS_NumJoysticks(void)
     {
         return SDL_SYS_numjoysticks;
     }
 
-    void SDL_SYS_JoystickDetect()
+    void SDL_SYS_JoystickDetect(void)
     {
     }
 
@@ -197,7 +197,7 @@ extern "C"
 
         /* Generate axis motion events */
         for (i = 0; i < joystick->naxes; ++i) {
-            change = ((int32) axes[i] - joystick->axes[i]);
+            change = ((int32) axes[i] - joystick->axes[i].value);
             if ((change > JITTER) || (change < -JITTER)) {
                 SDL_PrivateJoystickAxis(joystick, i, axes[i]);
             }

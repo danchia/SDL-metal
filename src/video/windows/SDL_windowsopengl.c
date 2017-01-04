@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2016 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2017 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -766,12 +766,15 @@ WIN_GL_GetSwapInterval(_THIS)
     return retval;
 }
 
-void
+int
 WIN_GL_SwapWindow(_THIS, SDL_Window * window)
 {
     HDC hdc = ((SDL_WindowData *) window->driverdata)->hdc;
 
-    SwapBuffers(hdc);
+    if (!SwapBuffers(hdc)) {
+        return WIN_SetError("SwapBuffers()");
+    }
+    return 0;
 }
 
 void

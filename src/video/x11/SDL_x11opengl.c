@@ -1,6 +1,6 @@
 /*
   Simple DirectMedia Layer
-  Copyright (C) 1997-2016 Sam Lantinga <slouken@libsdl.org>
+  Copyright (C) 1997-2017 Sam Lantinga <slouken@libsdl.org>
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -519,15 +519,6 @@ X11_GL_GetVisual(_THIS, Display * display, int screen)
     return vinfo;
 }
 
-#ifndef GLXBadContext
-#define GLXBadContext 0
-#endif
-#ifndef GLXBadFBConfig
-#define GLXBadFBConfig 9
-#endif
-#ifndef GLXBadProfileARB
-#define GLXBadProfileARB 13
-#endif
 static int (*handler) (Display *, XErrorEvent *) = NULL;
 static const char *errorHandlerOperation = NULL;
 static int errorBase = 0;
@@ -648,6 +639,7 @@ X11_GL_CreateContext(_THIS, SDL_Window * window)
                     context = _this->gl_data->glXCreateContextAttribsARB(display,
                                                     framebuffer_config[0],
                                                     share_context, True, attribs);
+                    X11_XFree(framebuffer_config);
                 }
             }
         }
@@ -791,13 +783,14 @@ X11_GL_GetSwapInterval(_THIS)
     }
 }
 
-void
+int
 X11_GL_SwapWindow(_THIS, SDL_Window * window)
 {
     SDL_WindowData *data = (SDL_WindowData *) window->driverdata;
     Display *display = data->videodata->display;
 
     _this->gl_data->glXSwapBuffers(display, data->xwindow);
+    return 0;
 }
 
 void
