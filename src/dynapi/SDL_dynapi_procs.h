@@ -656,6 +656,7 @@ SDL_DYNAPI_PROC(Uint16,SDL_GameControllerGetProductVersion,(SDL_GameController *
 SDL_DYNAPI_PROC(SDL_bool,SDL_HasNEON,(void),(),return)
 SDL_DYNAPI_PROC(int,SDL_GameControllerNumMappings,(void),(),return)
 SDL_DYNAPI_PROC(char*,SDL_GameControllerMappingForIndex,(int a),(a),return)
+SDL_DYNAPI_PROC(SDL_bool,SDL_JoystickGetAxisInitialState,(SDL_Joystick *a, int b, Sint16 *c),(a,b,c),return)
 SDL_DYNAPI_PROC(SDL_MetalContext,SDL_Metal_CreateContext,(SDL_Window *a),(a),return)
 SDL_DYNAPI_PROC(void,SDL_Metal_DeleteContext,(SDL_MetalContext a),(a),)
 SDL_DYNAPI_PROC(void*,SDL_Metal_BeginFrame,(SDL_MetalContext a),(a),return)

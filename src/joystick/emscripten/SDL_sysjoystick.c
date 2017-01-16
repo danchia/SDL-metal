@@ -146,7 +146,7 @@ Emscripten_JoyStickDisconnected(int eventType, const EmscriptenGamepadEvent *gam
     /* Need to decrement the joystick count before we post the event */
     --numjoysticks;
 
-	SDL_PrivateJoystickRemoved(item->device_instance);
+    SDL_PrivateJoystickRemoved(item->device_instance);
 
 #ifdef DEBUG_JOYSTICK
     SDL_Log("Removed joystick with id %d", item->device_instance);
@@ -331,7 +331,7 @@ SDL_SYS_JoystickUpdate(SDL_Joystick * joystick)
 
                 for(i = 0; i < item->naxes; i++) {
                     if(item->axis[i] != gamepadState.axis[i]) {
-                        // do we need to do conversion?
+                        /* do we need to do conversion? */
                         SDL_PrivateJoystickAxis(item->joystick, i,
                                                   (Sint16) (32767.*gamepadState.axis[i]));
                     }

@@ -18,20 +18,12 @@
      misrepresented as being the original software.
   3. This notice may not be removed or altered from any source distribution.
 */
-#include "../../SDL_internal.h"
 
-#ifndef _SDL_emscriptenaudio_h
-#define _SDL_emscriptenaudio_h
+struct SDL_EVDEV_keyboard_state;
+typedef struct SDL_EVDEV_keyboard_state SDL_EVDEV_keyboard_state;
 
-#include "../SDL_sysaudio.h"
+extern SDL_EVDEV_keyboard_state *SDL_EVDEV_kbd_init(void);
+extern void SDL_EVDEV_kbd_keycode(SDL_EVDEV_keyboard_state *state, unsigned int keycode, int down);
+extern void SDL_EVDEV_kbd_quit(SDL_EVDEV_keyboard_state *state);
 
-/* Hidden "this" pointer for the audio functions */
-#define _THIS   SDL_AudioDevice *this
-
-struct SDL_PrivateAudioData
-{
-    int unused;
-};
-
-#endif /* _SDL_emscriptenaudio_h */
 /* vi: set ts=4 sw=4 expandtab: */

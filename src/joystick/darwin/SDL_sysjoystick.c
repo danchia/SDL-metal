@@ -609,8 +609,8 @@ SDL_SYS_JoystickDetect(void)
         }
     }
 
-	// run this after the checks above so we don't set device->removed and delete the device before
-	// SDL_SYS_JoystickUpdate can run to clean up the SDL_Joystick object that owns this device
+	/* run this after the checks above so we don't set device->removed and delete the device before
+	   SDL_SYS_JoystickUpdate can run to clean up the SDL_Joystick object that owns this device */
 	while (CFRunLoopRunInMode(SDL_JOYSTICK_RUNLOOP_MODE,0,TRUE) == kCFRunLoopRunHandledSource) {
 		/* no-op. Pending callbacks will fire in CFRunLoopRunInMode(). */
 	}
@@ -692,9 +692,7 @@ SDL_SYS_JoystickUpdate(SDL_Joystick * joystick)
     i = 0;
     while (element) {
         value = GetHIDScaledCalibratedState(device, element, -32768, 32767);
-        if (value != joystick->axes[i].value) {
-            SDL_PrivateJoystickAxis(joystick, i, value);
-        }
+        SDL_PrivateJoystickAxis(joystick, i, value);
         element = element->pNext;
         ++i;
     }
@@ -706,9 +704,7 @@ SDL_SYS_JoystickUpdate(SDL_Joystick * joystick)
         if (value > 1) {          /* handle pressure-sensitive buttons */
             value = 1;
         }
-        if (value != joystick->buttons[i]) {
-            SDL_PrivateJoystickButton(joystick, i, value);
-        }
+        SDL_PrivateJoystickButton(joystick, i, value);
         element = element->pNext;
         ++i;
     }
@@ -759,9 +755,7 @@ SDL_SYS_JoystickUpdate(SDL_Joystick * joystick)
             break;
         }
 
-        if (pos != joystick->hats[i]) {
-            SDL_PrivateJoystickHat(joystick, i, pos);
-        }
+        SDL_PrivateJoystickHat(joystick, i, pos);
 
         element = element->pNext;
         ++i;

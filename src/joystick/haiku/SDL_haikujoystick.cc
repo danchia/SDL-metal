@@ -176,10 +176,9 @@ extern "C"
             SDL_HAT_LEFT,
             SDL_HAT_LEFTUP
         };
-        const int JITTER = (32768 / 10);        /* 10% jitter threshold (ok?) */
 
         BJoystick *stick;
-        int i, change;
+        int i;
         int16 *axes;
         uint8 *hats;
         uint32 buttons;
@@ -197,24 +196,17 @@ extern "C"
 
         /* Generate axis motion events */
         for (i = 0; i < joystick->naxes; ++i) {
-            change = ((int32) axes[i] - joystick->axes[i].value);
-            if ((change > JITTER) || (change < -JITTER)) {
-                SDL_PrivateJoystickAxis(joystick, i, axes[i]);
-            }
+            SDL_PrivateJoystickAxis(joystick, i, axes[i]);
         }
 
         /* Generate hat change events */
         for (i = 0; i < joystick->nhats; ++i) {
-            if (hats[i] != joystick->hats[i]) {
-                SDL_PrivateJoystickHat(joystick, i, hat_map[hats[i]]);
-            }
+            SDL_PrivateJoystickHat(joystick, i, hat_map[hats[i]]);
         }
 
         /* Generate button events */
         for (i = 0; i < joystick->nbuttons; ++i) {
-            if ((buttons & 0x01) != joystick->buttons[i]) {
-                SDL_PrivateJoystickButton(joystick, i, (buttons & 0x01));
-            }
+            SDL_PrivateJoystickButton(joystick, i, (buttons & 0x01));
             buttons >>= 1;
         }
     }
