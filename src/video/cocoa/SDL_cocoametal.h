@@ -22,6 +22,7 @@
 - (void)                      dealloc;
 - (id<MTLDevice>)             device;
 - (MTLRenderPassDescriptor *) beginFrame;
+- (id<MTLDrawable>)           drawable;
 - (void)                      presentCommandBuffer: (id<MTLCommandBuffer>)commandBuffer;
 - (void)                      endFrame;
 
@@ -31,6 +32,7 @@
 extern SDL_MetalContext Cocoa_Metal_CreateContext        (_THIS, SDL_Window * window);
 extern void *           Cocoa_Metal_GetDevice            (_THIS, SDL_MetalContext context);
 extern void *           Cocoa_Metal_BeginFrame           (_THIS, SDL_MetalContext context);
+extern void *           Cocoa_Metal_GetDrawable          (_THIS, SDL_MetalContext context);
 extern void             Cocoa_Metal_PresentCommandBuffer (_THIS, SDL_MetalContext context, void * commandBuffer);
 extern void             Cocoa_Metal_EndFrame             (_THIS, SDL_MetalContext context);
 extern void             Cocoa_Metal_DeleteContext        (_THIS, SDL_MetalContext context);

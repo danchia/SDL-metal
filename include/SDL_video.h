@@ -1219,6 +1219,7 @@ extern DECLSPEC void SDLCALL SDL_GL_DeleteContext(SDL_GLContext context);
 extern DECLSPEC SDL_MetalContext SDLCALL SDL_Metal_CreateContext     (SDL_Window *window);
 extern DECLSPEC void *           SDLCALL SDL_Metal_GetDevice         (SDL_MetalContext context);
 extern DECLSPEC void *           SDLCALL SDL_Metal_BeginFrame        (SDL_MetalContext context);
+extern DECLSPEC void *           SDLCALL SDL_Metal_GetDrawable       (SDL_MetalContext context);
 extern DECLSPEC void             SDLCALL SDL_Metal_PresentCommandBuffer (SDL_MetalContext context, void * commandBuffer);
 extern DECLSPEC void             SDLCALL SDL_Metal_EndFrame          (SDL_MetalContext context);
 extern DECLSPEC void             SDLCALL SDL_Metal_DeleteContext     (SDL_MetalContext context);

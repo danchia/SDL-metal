@@ -127,6 +127,7 @@ Cocoa_CreateDevice(int devindex)
     device->Metal_GetDevice            = Cocoa_Metal_GetDevice;
     device->Metal_BeginFrame           = Cocoa_Metal_BeginFrame;
     device->Metal_PresentCommandBuffer = Cocoa_Metal_PresentCommandBuffer;
+    device->Metal_GetDrawable          = Cocoa_Metal_GetDrawable;
     device->Metal_EndFrame             = Cocoa_Metal_EndFrame;
     device->Metal_DeleteContext        = Cocoa_Metal_DeleteContext;
 #endif

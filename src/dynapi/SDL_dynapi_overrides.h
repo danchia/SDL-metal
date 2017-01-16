@@ -629,5 +629,6 @@
 #define SDL_Metal_DeleteContext SDL_Metal_DeleteContext_REAL
 #define SDL_Metal_BeginFrame SDL_Metal_BeginFrame_REAL
 #define SDL_Metal_EndFrame SDL_Metal_EndFrame_REAL
+#define SDL_Metal_GetDrawable SDL_Metal_GetDrawable_REAL
 #define SDL_Metal_PresentCommandBuffer SDL_Metal_PresentCommandBuffer_REAL
 #define SDL_Metal_GetDevice SDL_Metal_GetDevice_REAL

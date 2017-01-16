@@ -3512,6 +3512,16 @@ SDL_Metal_BeginFrame(SDL_MetalContext context)
   return _this->Metal_BeginFrame(_this, context);
 }
 
+void *
+SDL_Metal_GetDrawable(SDL_MetalContext context)
+{
+  if (!_this || !context) {
+    return NULL;
+  }
+
+  return _this->Metal_GetDrawable(_this, context);
+}
+
 void
 SDL_Metal_PresentCommandBuffer(SDL_MetalContext context, void * commandBuffer)
 {

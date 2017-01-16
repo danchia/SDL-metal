@@ -43,6 +43,11 @@
   return d_device;
 }
 
+- (id<MTLDrawable>) drawable
+{
+  return d_drawable;
+}
+
 - (MTLRenderPassDescriptor *) beginFrame
 {
   if (d_passDescriptor == nil) {
@@ -117,6 +122,13 @@ Cocoa_Metal_BeginFrame(_THIS, SDL_MetalContext context)
 {
   SDLMetalContext *nscontext = (SDLMetalContext *)context;
   return [nscontext beginFrame];
+}
+
+void *
+Cocoa_Metal_GetDrawable(_THIS, SDL_MetalContext context)
+{
+  SDLMetalContext *nscontext = (SDLMetalContext *)context;
+  return [nscontext drawable];
 }
 
 void
